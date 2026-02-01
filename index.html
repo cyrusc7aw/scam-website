@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #fce4ec;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            width: 450px; 
+            min-height: 500px; /* Extra height so it has room to jump */
+        }
+
+        h1 {
+            color: #d81b60;
+            font-size: 26px;
+        }
+
+        .btn-container {
+            margin-top: 60px;
+            display: flex;
+            justify-content: flex-start; /* Aligns content to the left */
+            padding: 0 40px;
+            height: 60px;
+            position: relative;
+        }
+
+        button {
+            padding: 15px 35px;
+            font-size: 20px;
+            font-weight: bold;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+        }
+
+        #yesBtn {
+            background-color: #ff4081;
+            color: white;
+        }
+
+        #noBtn {
+            background-color: #bdbdbd;
+            color: white;
+            position: absolute;
+            /* Starts on the right side */
+            right: 40px; 
+            transition: 0.1s; /* Smooths the jump slightly */
+        }
+
+        #response {
+            display: none;
+        }
+
+        .cat-img {
+            width: 160px;
+            margin-bottom: 10px;
+        }
+
+        .shy-text {
+            display: block;
+            margin-top: 80px;
+            font-size: 12px;
+            color: #adadad;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" class="cat-img">
+    
+    <div id="main-content">
+        <h1>Manya, will you be my Valentine?</h1>
+        <div class="btn-container">
+            <button id="yesBtn">Yes</button>
+            <button id="noBtn">No</button>
+        </div>
+        <span class="shy-text">"No" seems a bit shy 🌸</span>
+    </div>
+
+    <div id="response">
+        <h1>YAY! 🎉</h1>
+        <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGFnZWY1ZnpmOHAwMjFka25zdGp4OHAwdGs1dGEzaXFwY3dvNXRzNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/QlvPwCTw59B2E/giphy.gif" style="width: 100%; border-radius: 10px;">
+    </div>
+</div>
+
+<script>
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const mainContent = document.getElementById('main-content');
+    const response = document.getElementById('response');
+
+    noBtn.addEventListener('mouseover', () => {
+        const container = document.querySelector('.container');
+        const containerRect = container.getBoundingClientRect();
+        
+        // Calculate max boundaries
+        const maxX = containerRect.width - noBtn.offsetWidth;
+        const maxY = containerRect.height - noBtn.offsetHeight;
+
+        // Generate random positions
+        const randomX = Math.floor(Math.random() * maxX);
+        const randomY = Math.floor(Math.random() * maxY);
+
+        // CRITICAL FIX: Remove 'right' and 'bottom' so 'left' and 'top' work
+        noBtn.style.right = 'auto';
+        noBtn.style.bottom = 'auto';
+        
+        noBtn.style.left = randomX + 'px';
+        noBtn.style.top = randomY + 'px';
+    });
+
+    yesBtn.addEventListener('click', () => {
+        mainContent.style.display = 'none';
+        response.style.display = 'block';
+    });
+</script>
+
+</body>
+</html>
